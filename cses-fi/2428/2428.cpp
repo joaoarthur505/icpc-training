@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef pair<ll, ll> p64;
+typedef vector<ll> v64;
+
+#define forn(i, s, e) for (ll i = (s); i < (e); i++)
+#define sz(u) ((ll) u.size())
+#define ln "\n"
+
+#ifdef DEBUG
+#define trace(u) u
+#define _
+#else
+#define trace(u)
+#define _ ios::sync_with_stdio(0); cin.tie(0)
+#endif
+
+#define debug(u) trace(cout << #u " = " << u << ln)
+#define debugv(v) trace(cout << #v ": "; for (auto xx : v) cout << xx << " "; cout << ln)
+
+const ll INF = 0x3f3f3f3f3f3f3f3fll;
+
+int main() {
+    _; ll n, k; cin >> n >> k;
+    v64 v(n);
+    forn(i, 0, n) cin >> v[i];
+
+    map<ll, ll> active;
+    ll l = 0, sum = 0;
+    forn(r, 0, n){
+        active[v[r]]++;
+        while(sz(active)>k){
+            active[v[l]]--;
+            if(active[v[l]] == 0) active.erase(v[l]);
+            l++;
+        }
+
+        sum += r-l+1;
+    }
+
+    cout << sum << ln;
+
+    return 0;
+}
