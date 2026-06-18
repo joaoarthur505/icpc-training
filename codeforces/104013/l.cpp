@@ -2,12 +2,12 @@
 using namespace std;
 
 typedef long long ll;
-typedef pair<ll, ll> p64;
-typedef vector<ll> v64;
+typedef pair<ll, ll> pll;
+typedef vector<ll> vll;
 
 #define forn(i, s, e) for (ll i = (s); i < (e); i++)
 #define sz(u) ((ll) u.size())
-#define ln "\n"
+#define ln endl
 
 #ifdef DEBUG
 #define trace(u) u
@@ -22,13 +22,42 @@ typedef vector<ll> v64;
 
 const ll INF = 0x3f3f3f3f3f3f3f3fll;
 
+ll read(){
+    ll a; cin >> a;
+    return a-1;
+}
+
 void solve(){
     ll n; cin >> n;
-    
+
+    cout << "? ";
+    forn(i, 2, n+1) cout << i << " ";
+    cout << 1 << ln;
+
+    vll cycle(n);
+    forn(i, 0, n) cycle[i] = read();
+
+    cout << "? ";
+    cout << 1 << " ";
+    forn(i, 3, n+1) cout << i << " ";
+    cout << 2 << ln;
+
+    vll fix(n);
+    forn(i, 0, n) fix[i] = read();
+
+    vll pi;
+    forn(i, 0, n) if(i == fix[i]) pi.push_back(i);
+
+    forn(i, 0, n) pi.push_back(cycle[pi.back()]);
+
+    cout << "! ";
+    forn(i, 0, n) cout << pi[i]+1 << " ";
+    cout << ln; 
+
 }
 
 int main() {
-    _; ll t; cin >> t;
-    while(t--) solve();
+    ll t; cin >> t;
+    while(t--)solve();
     return 0;
 }
