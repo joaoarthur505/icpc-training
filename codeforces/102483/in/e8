@@ -1,0 +1,1 @@
+sorted(shuffle(sorted([1,2,345])))

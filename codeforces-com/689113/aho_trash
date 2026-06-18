@@ -1,0 +1,49 @@
+namespace aho {
+    map<char, ll> to[MAX];
+    ll link[MAX], idx, term[MAX];
+    vll min_cost(MAX, INF);
+
+    void insert(string& s){
+        ll at = 0;
+        min_cost[at] = min(min_cost[at], sz(s));
+        forn(i, 0, sz(s)){
+            char c = s[i];
+            auto it = to[at].find(c);
+            if(it ==  to[at].end()) at = to[at][c] = ++idx;
+            else at = it->second;
+            min_cost[at] = min(min_cost[at], sz(s)-1-i);
+        }
+        term[at]++;
+    }
+
+    void build() {
+        queue<ll> q;
+        q.push(0);
+        link[0] = -1;
+        while(sz(q)) {
+            ll i = q.front(); q.pop();
+            for(auto [c, j] : to[i]) {
+                ll l = link[i];
+                while(l != -1 && !to[l].count(c)) l = link[l];
+                link[j] = l == -1 ? 0 : to[l][c];
+
+                min_cost[j] = min(min_cost[j], min_cost[link[j]]);
+
+                q.push(j);
+            }
+        }
+    }
+
+    ll query(string& s){
+        ll at = 0, best = sz(s) + min_cost[at];
+        forn(i, 0, sz(s)){
+            char c = s[i];
+            while(at != -1 && !to[at].count(c)) at = link[at];
+            at = at == -1 ? 0 : to[at][c];
+
+            best = min(best, sz(s) -1 -i + min_cost[at]);
+        }
+
+        return best;
+    }
+}
