@@ -22,7 +22,24 @@ typedef vector<ll> vll;
 
 const ll INF = 0x3f3f3f3f3f3f3f3fll;
 
-// int main() {
-//     _;
-//     return 0;
-// }
+int main() {
+    _; string s, resp = ""; cin >> s;
+    ll n = sz(s);
+    forn(i, 0, n){
+        if(s.substr(i, 6) == "mesero"){
+            resp.push_back('t');
+            resp.push_back('a');
+            resp.push_back('q');
+            resp.push_back('u');
+            resp.push_back('e');
+            resp.push_back('r');
+            resp.push_back('o');
+            i+=5;
+            continue;
+        }
+        else resp.push_back(s[i]);
+    }
+
+    cout << resp << ln;
+    return 0;
+}
